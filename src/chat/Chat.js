@@ -17,7 +17,7 @@ const Chat = (props) => {
   }
 
   return(
-    <div className="chat">
+    <>
 
       <ChatHeader handleToggleThread={handleToggleThread}/>
 
@@ -25,8 +25,7 @@ const Chat = (props) => {
         toggleThread === true ? <ChatThread messages={props.messages} /> : <ChatParticipants />
       }
 
-
-    </div>
+    </>
   ); // return
 }; //Function
 

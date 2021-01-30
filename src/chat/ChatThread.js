@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import MicIcon from '@material-ui/icons/Mic'
 import Message from './Message'
-import api from './api'
+import api from '../api'
 
 const ChatThread = (props) => {
 
