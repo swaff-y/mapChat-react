@@ -18,10 +18,10 @@ const SideBar = (props) => {
             <DonutLargeIcon />
           </IconButton>
           <IconButton>
-            <ChatIcon />
+            <ChatIcon onClick={()=>props.toggleChat()}/>
           </IconButton>
           <IconButton>
-            <MoreVertIcon onClick={()=>props.toggleChat()}/>
+            <MoreVertIcon onClick={()=>props.toggleSidebar()}/>
           </IconButton>
         </div>
       </div>

@@ -1,0 +1,13 @@
+.skinnySidebar{
+  display: flex;
+  flex-direction: column;
+  flex: 0.10;
+}
+
+.skinnySidebar_headerRight{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10vw;
+  border-right: 1px solid lightgray;
+}

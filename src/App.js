@@ -3,12 +3,14 @@ import Pusher from 'pusher-js';
 import api from './api';
 import './App.css';
 import SideBar from './SideBar';
+import SkinnySidebar from './SkinnySidebar';
 import Chat from './Chat';
 import Map from './Map';
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [toggleChat, setToggleChat] = useState(false);
+  const [toggleSidebar, setToggleSidebar] = useState(true);
 
   useEffect(() => {
     api.get('/messages/sync')
@@ -48,10 +50,21 @@ function App() {
     }
   }
 
+  const handleToggleSidebar= () => {
+    if(toggleSidebar === false){
+      setToggleSidebar(true);
+    }else if(toggleSidebar === true){
+      setToggleSidebar(false);
+    }
+  }
+
   return (
     <div className="app">
       <div className="app_body">
-        <SideBar toggleChat={handleToggleChat}/>
+        {
+          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} toggleSidebar={handleToggleSidebar}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
+        }
+
         {
           toggleChat === true ? <Chat messages={messages} /> : <Map />
         }
