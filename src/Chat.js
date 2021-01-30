@@ -3,9 +3,28 @@ import {Avatar, IconButton} from '@material-ui/core';
 import {AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import MicIcon from '@material-ui/icons/Mic'
+import Message from './Message'
 import "./Chat.css"
+import api from './api'
 
 const Chat = (props) => {
+  const [input, setInput] = useState();
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    api.post(`/messages/new`, {
+      message: input,
+      name: "Fake User",
+      timestamp: Date.now(),
+      received : false
+    }).then((res=>{
+      console.log("Message Succesfully sent");
+      setInput("");
+    })).catch(err=>console.warn(err));
+
+
+  }
+
   return(
     <div className="chat">
       <div className="chat_header">
@@ -30,100 +49,23 @@ const Chat = (props) => {
       </div>
 
       <div className="chat_body">
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
 
-        <p className="chat_message chat_reciever">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
+      {
+        props.messages.map((message,index) => <Message key={index} message={message} />)
+      }
 
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-        <p className="chat_message chat_reciever">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-        <p className="chat_message chat_reciever">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-        <p className="chat_message chat_reciever">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-        <p className="chat_message chat_reciever">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
-
-        <p className="chat_message">
-          <span className="chat_name">Kyle</span>
-          This is a message
-          <span className="chat_timestamp">
-          {new Date().toUTCString()}
-          </span>
-        </p>
       </div>
 
       <div className="chat_footer">
         <InsertEmoticonIcon />
         <form>
           <input
-
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Type a message"
             type="text"
           />
-          <button>Send a message</button>
+          <button onClick={sendMessage}>Send a message</button>
         </form>
         <MicIcon />
       </div>

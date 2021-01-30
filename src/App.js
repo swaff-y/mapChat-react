@@ -10,7 +10,8 @@ function App() {
   useEffect(() => {
     api.get('/messages/sync')
     .then(res => {
-      console.log("The data",res.data);
+      // console.log("The data",res.data);
+      setMessages(res.data);
     })
   },[]);
 
@@ -21,11 +22,11 @@ function App() {
 
      const channel = pusher.subscribe('messages');
      channel.bind('inserted', (newMessage) => {
-       alert(JSON.stringify(newMessage));
+       // alert(JSON.stringify(newMessage));
        setMessages([...messages, newMessage]);
      });
 
-     console.log("The data",messages);
+     // console.log("The appended",messages);
 
 
      return () => {
@@ -34,13 +35,13 @@ function App() {
      };
   },[messages]);
 
-  console.log("Fetched messages", messages);
+  // console.log("Fetched messages", messages);
 
   return (
     <div className="app">
       <div className="app_body">
         <SideBar />
-        <Chat />
+        <Chat messages={messages} />
       </div>
     </div>
   );
