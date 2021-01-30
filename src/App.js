@@ -1,77 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import Pusher from 'pusher-js';
-import api from './api';
-import './App.css';
-import SideBar from './sidebar/SideBar';
-import SkinnySidebar from './sidebar/SkinnySidebar';
-import Chat from './chat/Chat';
-import MapContainer from './map/MapContainer';
+import React from 'react';
+import Home from './Home';
+import { Link, Route, HashRouter as Router } from 'react-router-dom';
 
-function App() {
-  const [messages, setMessages] = useState([]);
-  const [toggleChat, setToggleChat] = useState(false);
-  const [toggleSidebar, setToggleSidebar] = useState(true);
-  const [locations, setLocations] = useState([]);
-
-  useEffect(() => {
-    api.get('/messages/sync')
-    .then(res => {
-      // console.log("The data",res.data);
-      setMessages(res.data);
-    })
-  },[]);
-
-  useEffect(()=>{
-    const pusher = new Pusher('1bf1ac863ab88a3d0532', {
-       cluster: 'ap4'
-     });
-
-     const channel = pusher.subscribe('messages');
-     channel.bind('inserted', (newMessage) => {
-       // alert(JSON.stringify(newMessage));
-       setMessages([...messages, newMessage]);
-     });
-
-     // console.log("The appended",messages);
-
-
-     return () => {
-       channel.unbind_all();
-       channel.unsubscribe();
-     };
-  },[messages]);
-
-  // console.log("Fetched messages", messages);
-
-  const handleToggleChat = () => {
-    if(toggleChat === false){
-      setToggleChat(true);
-    }else if(toggleChat === true){
-      setToggleChat(false);
-    }
-  }
-
-  const handleToggleSidebar= () => {
-    if(toggleSidebar === false){
-      setToggleSidebar(true);
-    }else if(toggleSidebar === true){
-      setToggleSidebar(false);
-      setToggleChat(false);
-    }
-  }
+const App = () => {
 
   return (
     <div className="app">
-      <div className="app_body">
-        {
-          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} toggleSidebar={handleToggleSidebar}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
-        }
-        <div className="chat">
-          {
-            toggleChat === true ? <Chat messages={messages} /> : <MapContainer locations={locations} width={toggleSidebar} />
-          }
-        </div>
-      </div>
+      <Router>
+        <Route exact path = "/" component = {Home} />
+        <Route exact path = "/room/:name" component = {Home} />
+      </Router>
     </div>
   );
 }

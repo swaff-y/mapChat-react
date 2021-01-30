@@ -8,7 +8,7 @@ const ChatHeader = (props) => {
       <Avatar />
 
       <div className="chat_headerInfo">
-        <h3>Room name</h3>
+        <h3>{props.room}</h3>
         <p>Last seen at...</p>
       </div>
 
