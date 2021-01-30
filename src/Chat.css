@@ -26,7 +26,7 @@
 
 .chat_body{
   flex:1;
-  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+  background-image: url("https://st2.depositphotos.com/1280399/7367/i/950/depositphotos_73677363-stock-photo-old-gray-wall-texture-grunge.jpg");
   background-repeat: repeat;
   background-position: center;
   padding: 30px;
@@ -46,6 +46,7 @@
 .chat_reciever{
   margin-left: auto;
   background-color: #dcf8c6;
+  /* background-color: #add8e6; */
 }
 
 .chat_timestamp{

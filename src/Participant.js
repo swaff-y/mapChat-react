@@ -1,17 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Avatar} from '@material-ui/core';
-import "./SidebarChat.css"
 
-const SidebarChat = (props) => {
+const Participant = (props) => {
   return(
     <div className="sidebarChat">
       <Avatar />
       <div className="sidebarChat_info">
-        <h2>Room name</h2>
+        <h2>Participant name</h2>
         <p>This is the last message</p>
       </div>
     </div>
   )
 }
 
-export default SidebarChat;
+export default Participant;

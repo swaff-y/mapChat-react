@@ -4,9 +4,12 @@ import api from './api';
 import './App.css';
 import SideBar from './SideBar';
 import Chat from './Chat';
+import Map from './Map';
 
 function App() {
   const [messages, setMessages] = useState([]);
+  const [toggleChat, setToggleChat] = useState(false);
+
   useEffect(() => {
     api.get('/messages/sync')
     .then(res => {
@@ -37,11 +40,21 @@ function App() {
 
   // console.log("Fetched messages", messages);
 
+  const handleToggleChat = () => {
+    if(toggleChat === false){
+      setToggleChat(true);
+    }else if(toggleChat === true){
+      setToggleChat(false);
+    }
+  }
+
   return (
     <div className="app">
       <div className="app_body">
-        <SideBar />
-        <Chat messages={messages} />
+        <SideBar toggleChat={handleToggleChat}/>
+        {
+          toggleChat === true ? <Chat messages={messages} /> : <Map />
+        }
       </div>
     </div>
   );

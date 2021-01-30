@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -8,6 +8,7 @@ import SidebarChat from './SidebarChat';
 import "./SideBar.css"
 
 const SideBar = (props) => {
+
   return(
     <div className="sidebar">
       <div className="sidebar_header">
@@ -20,7 +21,7 @@ const SideBar = (props) => {
             <ChatIcon />
           </IconButton>
           <IconButton>
-            <MoreVertIcon />
+            <MoreVertIcon onClick={()=>props.toggleChat()}/>
           </IconButton>
         </div>
       </div>
