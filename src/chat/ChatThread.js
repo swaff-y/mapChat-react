@@ -14,7 +14,7 @@ const ChatThread = (props) => {
       message: input,
       name: "Fake User",
       timestamp: Date.now(),
-      received : false
+      room: props.room
     }).then((res=>{
       console.log("Message Succesfully sent");
       setInput("");

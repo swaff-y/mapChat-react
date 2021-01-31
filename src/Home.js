@@ -17,9 +17,9 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
 
   useEffect(() => {
-    api.get('/messages/sync')
+    api.get(`/messages/sync/${roomName}`)
     .then(res => {
-      // console.log("The data",res.data);
+       console.log("The data",res.data);
       setMessages(res.data);
     })
   },[]);
