@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
+import { animateScroll } from "react-scroll";
 import MicIcon from '@material-ui/icons/Mic'
 import Message from './Message'
 import api from '../api'
@@ -7,6 +8,9 @@ import api from '../api'
 const ChatThread = (props) => {
 
   const [input, setInput] = useState();
+  useEffect(()=>{
+    scrollToBottom();
+  },[props.messages])
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -21,9 +25,15 @@ const ChatThread = (props) => {
     })).catch(err=>console.warn(err));
   };
 
+  const scrollToBottom = () => {
+    animateScroll.scrollToBottom({
+      containerId: "scroll"
+    });
+  };
+
   return(
     <>
-      <div className="chat_body">
+      <div className="chat_body" id="scroll">
 
         {
           props.messages.map((message,index) => <Message key={index} message={message} user={props.user}/>)
