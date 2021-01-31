@@ -12,7 +12,7 @@ const ChatThread = (props) => {
     e.preventDefault();
     api.post(`/messages/new`, {
       message: input,
-      name: "Fake User",
+      name: props.user,
       timestamp: Date.now(),
       room: props.room
     }).then((res=>{
@@ -26,7 +26,7 @@ const ChatThread = (props) => {
       <div className="chat_body">
 
         {
-          props.messages.map((message,index) => <Message key={index} message={message} />)
+          props.messages.map((message,index) => <Message key={index} message={message} user={props.user}/>)
         }
 
       </div>

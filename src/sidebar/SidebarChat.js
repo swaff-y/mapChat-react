@@ -5,10 +5,10 @@ import "./SidebarChat.css"
 const SidebarChat = (props) => {
 
   return(
-    <div className="sidebarChat" onClick={()=>props.handleClick(props.room)}>
+    <div className="sidebarChat" onClick={()=>props.handleClick(props.room.name)}>
       <Avatar />
       <div className="sidebarChat_info">
-        <h2>{ props.room }</h2>
+        <h2>{ props.room.name }</h2>
         <p>This is the last message</p>
       </div>
     </div>
