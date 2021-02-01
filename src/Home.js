@@ -96,7 +96,7 @@ const Home = (props) => {
         }
         <div className="chat">
           {
-            toggleChat === true ? <Chat messages={messages} room={roomName} user={user}/> : <MapContainer locations={locations} width={toggleSidebar} />
+            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms}/> : <MapContainer locations={locations} width={toggleSidebar} />
           }
         </div>
       </div>

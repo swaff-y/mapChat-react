@@ -9,7 +9,7 @@ const SidebarChat = (props) => {
       <Avatar />
       <div className="sidebarChat_info">
         <h2>{ props.room.name }</h2>
-        <p>This is the last message</p>
+        <p>{props.room.lastMessage}</p>
       </div>
     </div>
   )

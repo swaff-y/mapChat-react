@@ -19,10 +19,10 @@ const Chat = (props) => {
   return(
     <>
 
-      <ChatHeader handleToggleThread={handleToggleThread} room={props.room}/>
+      <ChatHeader handleToggleThread={handleToggleThread} roomName={props.roomName} rooms={props.rooms}/>
 
       {
-        toggleThread === true ? <ChatThread messages={props.messages} room={props.room} user={props.user}/> : <ChatParticipants />
+        toggleThread === true ? <ChatThread messages={props.messages} roomName={props.roomName} user={props.user}/> : <ChatParticipants />
       }
 
     </>
