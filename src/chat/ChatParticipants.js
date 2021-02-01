@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import Participant from './Participant'
+import api from '../api';
 
 const ChatParticipants = (props) => {
 
   const [participants, setParticipants] = useState([]);
 
   useEffect(()=>{
-    props.rooms.forEach((room)=>{
-      if(room.name === props.roomName){
-        setParticipants(room.participants)
-      }
+    api.get(`room/${props.roomName}`)
+    .then(res=>{
+      setParticipants(res.data.participants)
     })
-  },[props.roomName]);
-
-  // console.log("participants:", participants);
+    .catch(err=>{
+      console.warn(err)
+    })
+  },[props.roomName])
 
   return(
     <div className="chat_participants">
       {
-        participants.map((participant,index) => <Participant key={index} participant={participant} user={props.user} lastMessage={props.lastMessage}/> )
+        participants.map((participant,index) => <Participant key={index} participant={participant}/> )
       }
     </div>
   )
