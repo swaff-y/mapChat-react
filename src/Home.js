@@ -18,6 +18,7 @@ const Home = (props) => {
   const [locations, setLocations] = useState([]);
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(FAKE_USER);
+  const [lastMessage, setLastMessage] = useState("");
 
   useEffect(() => {
     //get messages
@@ -48,23 +49,17 @@ const Home = (props) => {
     const pusher = new Pusher('1bf1ac863ab88a3d0532', {
        cluster: 'ap4'
      });
-
      const channel = pusher.subscribe('messages');
      channel.bind('inserted', (newMessage) => {
        // alert(JSON.stringify(newMessage));
        setMessages([...messages, newMessage]);
+       setLastMessage(newMessage.message)
      });
-
-     // console.log("The appended",messages);
-
-
      return () => {
        channel.unbind_all();
        channel.unsubscribe();
      };
   },[messages]);
-
-  // console.log("Fetched messages", messages);
 
   const handleToggleChat = () => {
     if(toggleChat === false){
@@ -87,6 +82,8 @@ const Home = (props) => {
     props.history.push(`/room/${name}`);
     setRoomName(name);
   }
+
+  console.log("The Last one: ", lastMessage);
 
   return (
     <div className="app">

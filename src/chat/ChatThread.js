@@ -22,7 +22,7 @@ const ChatThread = (props) => {
     }).then((res=>{
       console.log("Message Succesfully sent");
       setInput("");
-    })).catch(err=>console.warn(err));
+    })).catch(err=>console.log("I am throwing and error:", err));
   };
 
   const scrollToBottom = () => {
