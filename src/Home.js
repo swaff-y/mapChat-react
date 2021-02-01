@@ -20,8 +20,6 @@ const Home = (props) => {
   const [user, setUser] = useState(FAKE_USER);
   const [lastMessage, setLastMessage] = useState("");
 
-  console.log("Whats in messages: ", messages);
-
   useEffect(() => {
     //get messages
     api.get(`/messages/sync/${roomName}`)

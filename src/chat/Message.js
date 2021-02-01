@@ -2,8 +2,6 @@ import React from 'react';
 
 const Message = (props) => {
 
-  console.log("The Message: ",props.message);
-
   return(
     <>
       <p className={`chat_message ${props.user === props.message.name ? "chat_reciever" : ""}`}>

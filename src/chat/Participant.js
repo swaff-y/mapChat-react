@@ -6,7 +6,7 @@ const Participant = (props) => {
     <div className="sidebarChat">
       <Avatar />
       <div className="sidebarChat_info">
-        <h2>Participant name</h2>
+        <h2>{ props.participantName}</h2>
         <p>This is the last message</p>
       </div>
     </div>
