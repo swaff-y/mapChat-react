@@ -18,7 +18,7 @@ const ChatParticipants = (props) => {
   return(
     <div className="chat_participants">
       {
-        participants.map((participant) => <Participant participantName={participant.name}/> )
+        participants.map((participant,index) => <Participant key={index} participant={participant} user={props.user} lastMessage={props.lastMessage}/> )
       }
     </div>
   )

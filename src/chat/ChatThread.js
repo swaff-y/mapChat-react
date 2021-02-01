@@ -20,7 +20,7 @@ const ChatThread = (props) => {
       message: input,
       name: props.user,
       timestamp: Date.now(),
-      room: props.roomName
+      room: props.roomName,
     }).then((res=>{
       console.log("Message Succesfully sent");
       setInput("");
