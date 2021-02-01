@@ -7,7 +7,7 @@ import SkinnySidebar from './sidebar/SkinnySidebar';
 import Chat from './chat/Chat';
 import MapContainer from './map/MapContainer';
 
-const FAKE_SIDEBAR_ROOMS = ["SEI40","Hunting","Fishing","Safari","Crime","Company-XYZ-reps"];
+// const FAKE_SIDEBAR_ROOMS = ["SEI40","Hunting","Fishing","Safari","Crime","Company-XYZ-reps"];
 const FAKE_USER = "Swaff-y";
 
 const Home = (props) => {
@@ -19,6 +19,8 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(FAKE_USER);
   const [lastMessage, setLastMessage] = useState("");
+
+  console.log("Whats in messages: ", messages);
 
   useEffect(() => {
     //get messages
@@ -52,8 +54,9 @@ const Home = (props) => {
      const channel = pusher.subscribe('messages');
      channel.bind('inserted', (newMessage) => {
        // alert(JSON.stringify(newMessage));
+       // if()
        setMessages([...messages, newMessage]);
-       setLastMessage(newMessage.message)
+       setLastMessage(newMessage.message);
      });
      return () => {
        channel.unbind_all();
@@ -83,7 +86,7 @@ const Home = (props) => {
     setRoomName(name);
   }
 
-  // console.log("The Last one: ", lastMessage);
+  // console.log("Match-left: ", messages[0].room, "Match-right: ", roomName);
 
   return (
     <div className="app">

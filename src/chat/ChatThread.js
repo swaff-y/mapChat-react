@@ -7,6 +7,8 @@ import api from '../api'
 
 const ChatThread = (props) => {
 
+  const see = props.messages;
+
   const [input, setInput] = useState();
   useEffect(()=>{
     scrollToBottom();
@@ -36,7 +38,7 @@ const ChatThread = (props) => {
       <div className="chat_body" id="scroll">
 
         {
-          props.messages.map((message,index) => <Message key={index} message={message} user={props.user}/>)
+          props.messages.map((message,index) => see[index].room === props.roomName ? <Message key={index} message={message} user={props.user} /> : null)
         }
 
       </div>

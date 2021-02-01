@@ -4,17 +4,12 @@ import "./SidebarChat.css"
 
 const SidebarChat = (props) => {
   const [lastMessage, setLastMessage] = useState(props.room.lastMessage)
-
-  // console.log(props.room.name,"The last message room:->", props.room.lastMessage, "The last message prop:->", props.lastMessage,);
-
-  // console.log("Room comparisons:", props.roomName , props.room.name);
   useEffect(()=>{
     if(props.roomName === props.room.name && props.lastMessage !== ""){
       setLastMessage(props.lastMessage);
-      // console.log("the last message", lastMessage);
     }
   },[props.lastMessage])
-      // console.log("the last message", lastMessage);
+
   return(
     <div className="sidebarChat" onClick={()=>props.handleClick(props.room.name)}>
       <Avatar />
