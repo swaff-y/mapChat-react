@@ -33,7 +33,7 @@ const SideBar = (props) => {
       </div>
       <div className="sidebar_chats">
         {
-          props.chatRooms.map((room,index) => <SidebarChat key={index} room={room} handleClick={props.handleClick}/>)
+          props.chatRooms.map((room,index) => <SidebarChat key={index} roomName={props.roomName} room={room} lastMessage={props.lastMessage} handleClick={props.handleClick}/>)
         }
       </div>
     </div>

@@ -83,13 +83,13 @@ const Home = (props) => {
     setRoomName(name);
   }
 
-  console.log("The Last one: ", lastMessage);
+  // console.log("The Last one: ", lastMessage);
 
   return (
     <div className="app">
       <div className="app_body">
         {
-          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
+          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
         }
         <div className="chat">
           {
