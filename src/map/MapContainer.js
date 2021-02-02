@@ -3,9 +3,32 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const MapContainer = (props) => {
 
-  const [lat,setLat] = useState(-33.8688197);
-  const [long,setLong] = useState(151.2092955);
-  const [bounds,setBounds] = useState(null);
+  const [points, setPoints] = useState([{lat:0,lng:0}]);
+  const [loaded, setLoaded] = useState(false);
+  // const [bounds,setBounds] = useState(null);
+
+  useEffect(()=>{
+    let rest = points;
+    rest.shift();
+    props.messages.forEach((message)=>{
+      rest.push({lat:message.latitude, lng:message.longitude});
+    })
+    setPoints(rest)
+    setLoaded(true);
+  },[])
+
+  console.log("The Points: ", points, props.messages);
+
+  // const points = [
+  //   { lat: 34.02, lng: -82.01 },
+  //   { lat: 42.03, lng: -77.02 },
+  //   { lat: 35.03, lng: -80.04 },
+  //   { lat: 44.05, lng: -70.02 }
+  // ]
+  const bounds = new props.google.maps.LatLngBounds();
+  for (var i = 0; i < points.length; i++) {
+    bounds.extend(points[i]);
+  }
 
   let width;
   if(props.width === true){
@@ -20,19 +43,20 @@ const MapContainer = (props) => {
   };
 
   const displayMarkers = () => {
-      return props.locations.map((location, index) => {
+      // console.log("inside points:", points);
+      return props.messages.map((message, index) => {
         return <Marker
                 key={index}
                 id={index}
                 position={{
-                  lat: location.latitude,
-                  lng: location.longitude
+                  lat: message.latitude,
+                  lng: message.longitude
                 }}
                 onClick={() => console.log("You clicked me!")}
                 title={"$100"}
                 name={"location.name"}
                 icon={{
-                  url: `https://chart.googleapis.com/chart?chst=d_map_spin&chld=1|0|FFFFFF|10|b|$ ${location.listing_price}`,
+                  url: `https://chart.googleapis.com/chart?chst=d_fnote&chld=thought|1|0088FF|h|${message.message}|another line|one more line`,
                 }}
                 />
       })
@@ -40,15 +64,18 @@ const MapContainer = (props) => {
 
   return(
     <div>
-      <Map
-        google={props.google}
-        zoom={10}
-        style={mapStyles}
-        initialCenter={{ lat: lat, lng: long}}
-        bounds={bounds}
-      >
-      {displayMarkers()}
-      </Map>
+    {
+      loaded === true ? <Map
+              google={props.google}
+              zoom={10}
+              style={mapStyles}
+              initialCenter={{ lat: -33.8688197, lng:151.2092955 }}
+              bounds={bounds}
+            >
+            {displayMarkers()}
+            </Map> : <p>Loading....</p>
+    }
+
     </div>
   )
 }

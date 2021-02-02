@@ -19,6 +19,7 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
+  // const [messageLocations, setMessageLocations] = useState([]);
 
   useEffect(()=>{
     api.get(`/rooms/sync/${props.match.params.user}`)
@@ -37,7 +38,6 @@ const Home = (props) => {
     //get messages
     api.get(`/messages/sync/${roomName}`)
     .then(res => {
-       // console.log("The message data",res.data);
       setMessages(res.data);
     })
     .catch(err=>{
@@ -99,7 +99,7 @@ const Home = (props) => {
     setRoomName(name);
   }
 
-  // console.log("Match-left: ", messages[0].room, "Match-right: ", roomName);
+  // console.log("The messages:", messages);
 
 
   return (
@@ -110,7 +110,7 @@ const Home = (props) => {
         }
         <div className="chat">
           {
-            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/> : <MapContainer locations={locations} width={toggleSidebar} />
+            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/> : <MapContainer locations={locations} width={toggleSidebar} messages={messages}/>
           }
         </div>
       </div>
