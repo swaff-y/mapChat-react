@@ -11,11 +11,15 @@ const ChatThread = (props) => {
   const see = props.messages;
 
   const [toggleEmoji, setToggleEmoji] = useState(false);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState('');
 
   useEffect(()=>{
     scrollToBottom();
   },[props.messages])
+
+  useEffect(()=>{
+    document.getElementById("test").focus()
+  },[input])
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -66,6 +70,7 @@ const ChatThread = (props) => {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type a message"
             type="text"
+            id="test"
           />
           <button onClick={sendMessage}>Send a message</button>
         </form>
