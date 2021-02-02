@@ -12,8 +12,8 @@ const ChatThread = (props) => {
 
   const [toggleEmoji, setToggleEmoji] = useState(false);
   const [input, setInput] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   useEffect(()=>{
     scrollToBottom();
@@ -28,9 +28,6 @@ const ChatThread = (props) => {
     setLatitude(data.coords.latitude)
     setLongitude(data.coords.longitude)
   }
-
-  console.log("CoOrds: ", latitude);
-  console.log("CoOrds: ", longitude);
 
   const sendMessage = (e) => {
     e.preventDefault();
