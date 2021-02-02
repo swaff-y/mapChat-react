@@ -4,9 +4,24 @@ import "./SidebarChat.css"
 
 const SidebarChat = (props) => {
   const [lastMessage, setLastMessage] = useState(props.room.lastMessage)
+
+  useEffect(()=>{
+    if(props.roomName === props.room.name){
+      if(props.room.lastMessage.length <= 15){
+        setLastMessage(props.room.lastMessage);
+      }else{
+        setLastMessage(props.room.lastMessage.substring(0,20) + "...");
+      }
+    }
+  },[props.room.lastMessage])
+
   useEffect(()=>{
     if(props.roomName === props.room.name && props.lastMessage !== ""){
-      setLastMessage(props.lastMessage);
+      if(props.lastMessage.length <= 15){
+        setLastMessage(props.lastMessage);
+      }else{
+        setLastMessage(props.lastMessage.substring(0,20) + "...");
+      }
     }
   },[props.lastMessage])
 
