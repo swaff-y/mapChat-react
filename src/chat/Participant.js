@@ -8,7 +8,7 @@ const Participant = ({participant}) => {
     if(participant.lastMessage.length <= 15){
       setLastMessage(participant.lastMessage);
     }else{
-      setLastMessage(participant.lastMessage.substring(0,20) + "...");
+      setLastMessage(participant.lastMessage.substring(0,20) + " ...");
     }
   },[participant.lastMessage])
 

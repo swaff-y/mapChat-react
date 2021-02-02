@@ -17,12 +17,20 @@ const Home = (props) => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
   const [locations, setLocations] = useState([]);
   const [roomName, setRoomName] = useState(props.match.params.name);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
 
   useEffect(()=>{
-      setUser(props.match.params.user)
-      props.history.push(`/room/first/${props.match.params.user}`)
+    api.get(`/rooms/sync/${props.match.params.user}`)
+    .then(res => {
+       // console.log("The room data",res.data);
+      setRooms(res.data);
+      props.history.push(`/room/${res.data[0].name}/${props.match.params.user}`)
+    })
+    .catch(err=>{
+      console.warn(err)
+    })
+
   },[])
 
   useEffect(() => {
@@ -39,7 +47,7 @@ const Home = (props) => {
 
   useEffect(() => {
     //Get rooms
-    api.get(`/rooms/sync/${FAKE_USER}`)
+    api.get(`/rooms/sync/${user}`)
     .then(res => {
        // console.log("The room data",res.data);
       setRooms(res.data);
@@ -49,6 +57,8 @@ const Home = (props) => {
     })
 
   },[props.match.params.name]);
+
+
 
   useEffect(()=>{
     const pusher = new Pusher('1bf1ac863ab88a3d0532', {
