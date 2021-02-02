@@ -10,8 +10,15 @@ const SidebarChat = (props) => {
     }
   },[props.lastMessage])
 
+  const handleClick = () => {
+    props.handleClick(props.room.name);
+    if(props.toggleChatStatus !== true){
+      props.toggleChat();
+    }
+  }
+
   return(
-    <div className="sidebarChat" onClick={()=>props.handleClick(props.room.name)}>
+    <div className="sidebarChat" onClick={handleClick}>
       <Avatar />
       <div className="sidebarChat_info">
         <h2>{ props.room.name }</h2>

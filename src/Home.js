@@ -17,8 +17,13 @@ const Home = (props) => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
   const [locations, setLocations] = useState([]);
   const [roomName, setRoomName] = useState(props.match.params.name);
-  const [user, setUser] = useState(FAKE_USER);
+  const [user, setUser] = useState();
   const [lastMessage, setLastMessage] = useState("");
+
+  useEffect(()=>{
+      setUser(props.match.params.user)
+      props.history.push(`/room/first/${props.match.params.user}`)
+  },[])
 
   useEffect(() => {
     //get messages
@@ -80,17 +85,18 @@ const Home = (props) => {
   }
 
   const handleRoomChange = (name) => {
-    props.history.push(`/room/${name}`);
+    props.history.push(`/room/${name}/${user}`);
     setRoomName(name);
   }
 
   // console.log("Match-left: ", messages[0].room, "Match-right: ", roomName);
 
+
   return (
     <div className="app">
       <div className="app_body">
         {
-          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
+          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} chatToggleStatus={toggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
         }
         <div className="chat">
           {

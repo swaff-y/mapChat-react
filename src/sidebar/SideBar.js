@@ -13,6 +13,7 @@ const SideBar = (props) => {
     <div className="sidebar">
       <div className="sidebar_header">
         <Avatar src="https://avatars.githubusercontent.com/u/72368535?s=400&u=20eeecfe9dd1f5a481917319985b2de6d695a80c&v=4"/>
+        {props.user}
         <div className="sidebar_headerRight">
           <IconButton>
             <DonutLargeIcon />
@@ -33,7 +34,7 @@ const SideBar = (props) => {
       </div>
       <div className="sidebar_chats">
         {
-          props.chatRooms.map((room,index) => <SidebarChat key={index} roomName={props.roomName} room={room} lastMessage={props.lastMessage} handleClick={props.handleClick}/>)
+          props.chatRooms.map((room,index) => <SidebarChat key={index} roomName={props.roomName} room={room} lastMessage={props.lastMessage} handleClick={props.handleClick} toggleChat={props.toggleChat} toggleChatStatus={props.chatToggleStatus}/>)
         }
       </div>
     </div>
