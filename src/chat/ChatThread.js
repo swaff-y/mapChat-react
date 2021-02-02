@@ -12,14 +12,25 @@ const ChatThread = (props) => {
 
   const [toggleEmoji, setToggleEmoji] = useState(false);
   const [input, setInput] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
   useEffect(()=>{
     scrollToBottom();
   },[props.messages])
 
   useEffect(()=>{
-    document.getElementById("test").focus()
+    document.getElementById("test").focus();
+    navigator.geolocation.getCurrentPosition(getLocation,console.error());
   },[input])
+
+  function getLocation(data){
+    setLatitude(data.coords.latitude)
+    setLongitude(data.coords.longitude)
+  }
+
+  console.log("CoOrds: ", latitude);
+  console.log("CoOrds: ", longitude);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -28,6 +39,8 @@ const ChatThread = (props) => {
       name: props.user,
       timestamp: Date.now(),
       room: props.roomName,
+      latitude: latitude,
+      longitude: longitude
     }).then((res=>{
       console.log("Message Succesfully sent");
       setInput("");
