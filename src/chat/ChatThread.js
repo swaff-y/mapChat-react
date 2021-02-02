@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Emoji from './Emoji';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import { animateScroll } from "react-scroll";
 import MicIcon from '@material-ui/icons/Mic'
@@ -9,7 +10,9 @@ const ChatThread = (props) => {
 
   const see = props.messages;
 
+  const [toggleEmoji, setToggleEmoji] = useState(false);
   const [input, setInput] = useState();
+
   useEffect(()=>{
     scrollToBottom();
   },[props.messages])
@@ -33,6 +36,18 @@ const ChatThread = (props) => {
     });
   };
 
+  const handleToggleEmoji = () => {
+    if(toggleEmoji === false){
+      setToggleEmoji(true);
+    }else if(toggleEmoji === true){
+      setToggleEmoji(false);
+    }
+  }
+
+  const setEmoji = (value) => {
+    setInput(input + value.emoji)
+  }
+
   return(
     <>
       <div className="chat_body" id="scroll">
@@ -44,7 +59,7 @@ const ChatThread = (props) => {
       </div>
 
       <div className="chat_footer">
-        <InsertEmoticonIcon />
+        <InsertEmoticonIcon onClick={handleToggleEmoji} />
         <form>
           <input
             value={input}
@@ -56,6 +71,10 @@ const ChatThread = (props) => {
         </form>
         <MicIcon />
       </div>
+
+      {
+        toggleEmoji === true ? <Emoji getEmoji={setEmoji} handleToggle={handleToggleEmoji}/> : null
+      }
     </>
   )
 }
