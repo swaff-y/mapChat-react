@@ -4,6 +4,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import { animateScroll } from "react-scroll";
 import MicIcon from '@material-ui/icons/Mic'
 import Message from './Message'
+import axios from 'axios';
 import api from '../api'
 
 const ChatThread = (props) => {
@@ -14,6 +15,9 @@ const ChatThread = (props) => {
   const [input, setInput] = useState('');
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [locationOff, setLocationOff] = useState(false);
+
+  // console.log("The browser:", navigator.permissions);
 
   useEffect(()=>{
     scrollToBottom();
@@ -21,12 +25,25 @@ const ChatThread = (props) => {
 
   useEffect(()=>{
     document.getElementById("test").focus();
-    navigator.geolocation.getCurrentPosition(getLocation,console.error());
+    navigator.geolocation.getCurrentPosition(getLocation,askLocation);
+
   },[input])
 
   function getLocation(data){
     setLatitude(data.coords.latitude)
     setLongitude(data.coords.longitude)
+    setLocationOff(false)
+  }
+  function askLocation(data){
+    console.warn("Location not set");
+    axios.get("https://extreme-ip-lookup.com/json/")
+    .then((res)=>{
+      setLatitude(res.data.lat)
+      setLongitude(res.data.lon)
+    })
+    .catch()
+
+    setLocationOff(true);
   }
 
   const sendMessage = (e) => {
@@ -65,12 +82,14 @@ const ChatThread = (props) => {
   return(
     <>
       <div className="chat_body" id="scroll">
-
         {
           props.messages.map((message,index) => see[index].room === props.roomName ? <Message key={index} message={message} user={props.user} /> : null)
         }
-
       </div>
+
+      {
+        locationOff === true ? <div className=""><strong>Please turn on your location settings</strong> <br/>(We are busy using an estimated location based on you IP Address)</div> : null
+      }
 
       <div className="chat_footer">
         <InsertEmoticonIcon onClick={handleToggleEmoji} />

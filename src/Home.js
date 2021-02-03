@@ -19,6 +19,7 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
+    const [points, setPoints] = useState([]);
   // const [messageLocations, setMessageLocations] = useState([]);
 
   useEffect(()=>{
@@ -77,6 +78,14 @@ const Home = (props) => {
      };
   },[messages]);
 
+  useEffect(()=>{
+    let rest = [];
+    messages.forEach((message,index)=>{
+      rest.push({lat:message.latitude, lng:message.longitude});
+    })
+    setPoints(rest)
+  },[messages])
+
   const handleToggleChat = () => {
     if(toggleChat === false){
       setToggleChat(true);
@@ -110,7 +119,7 @@ const Home = (props) => {
         }
         <div className="chat">
           {
-            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/> : <MapContainer locations={locations} width={toggleSidebar} messages={messages}/>
+            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/> : <MapContainer locations={locations} width={toggleSidebar} messages={messages} points={points}/>
           }
         </div>
       </div>

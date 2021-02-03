@@ -3,28 +3,10 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const MapContainer = (props) => {
 
-  const [points, setPoints] = useState([{lat:0,lng:0}]);
   const [loaded, setLoaded] = useState(false);
-  // const [bounds,setBounds] = useState(null);
+  const [lat, setLat] = useState(-33);
+  const [lng, setLng] = useState(151);
 
-  useEffect(()=>{
-    let rest = points;
-    rest.shift();
-    props.messages.forEach((message)=>{
-      rest.push({lat:message.latitude, lng:message.longitude});
-    })
-    setPoints(rest)
-    setLoaded(true);
-  },[])
-
-  let msg = "";
-  if(props.messages[0] !== undefined){
-      msg = props.messages[0].message
-  }
-
-  const str = wordWrap(msg, 14);
-
-  // console.log("The Points: ", str.split('*'));
 
   function wordWrap(str, maxWidth) {
       let newLineStr = "*";
@@ -59,8 +41,8 @@ const MapContainer = (props) => {
 
 
   const bounds = new props.google.maps.LatLngBounds();
-  for (var i = 0; i < points.length; i++) {
-    bounds.extend(points[i]);
+  for (var i = 0; i < props.points.length; i++) {
+    bounds.extend(props.points[i]);
   }
 
   let width;
@@ -74,6 +56,8 @@ const MapContainer = (props) => {
     width: width,
     height: '89.5%'
   };
+
+  console.log("The bounds:", bounds);
 
   const displayMarkers = () => {
       // console.log("inside points:", points);
@@ -98,15 +82,17 @@ const MapContainer = (props) => {
   return(
     <div>
     {
-      loaded === true ? <Map
+      props.points.length > 0 ? <Map
               google={props.google}
-              zoom={10}
+
               style={mapStyles}
-              initialCenter={{ lat: -33.8688197, lng:151.2092955 }}
+              initialCenter={{ lat: lat, lng: lng }}
               bounds={bounds}
             >
             {displayMarkers()}
-            </Map> : <p>Loading....</p>
+            </Map>
+            :
+            <p>Loading...</p>
     }
 
     </div>
