@@ -13,10 +13,10 @@ const SideBar = (props) => {
     <div className="sidebar">
       <div className="sidebar_header">
         <Avatar src="https://avatars.githubusercontent.com/u/72368535?s=400&u=20eeecfe9dd1f5a481917319985b2de6d695a80c&v=4"/>
-        {props.user}
+        <p><strong>Welcome:</strong> <br/>{props.user}</p>
         <div className="sidebar_headerRight">
           <IconButton>
-            <DonutLargeIcon />
+            <DonutLargeIcon onClick={()=>props.history.push('/')}/>
           </IconButton>
           <IconButton>
             <ChatIcon onClick={()=>props.toggleChat()}/>

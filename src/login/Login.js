@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { Dropdown } from 'react-bootstrap';
 import api from '../api';
 import './login.css';
 
 const Login = (props) => {
   const[users, setUsers] = useState([]);
+  const[toggleDrop, setToggleDrop] = useState(false);
 
   useEffect(()=>{
     api.get('/users')
     .then(res => {
-        console.log("The user data",res.data);
+        // console.log("The user data",res.data);
       setUsers(res.data);
     })
     .catch(err=>{
@@ -17,51 +17,42 @@ const Login = (props) => {
     })
   },[])
 
+  const handleToggleDrop = () => {
+
+    if( toggleDrop === true ){
+      setToggleDrop(false)
+    }else if(toggleDrop === false){
+      setToggleDrop(true)
+    }
+  }
+
   return(
     <>
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Dropdown Button
-        </Dropdown.Toggle>
+      <div className="dropdown">
+        <button onClick={handleToggleDrop} className="dropbtn">Dropdown</button>
 
-        <Dropdown.Menu>
           {
-            users.map((user, index)=><Dropdown.Item href={"#/room/" + user.lastRoom + "/" + user.name}>{user.name}</Dropdown.Item>)
+            toggleDrop === true
+            ?
+            <div id="myDropdown" className="dropdown-content">
+              <a href="#/room/SEI40/User1">User1</a>
+              <a href="#/room/SEI40/User2">User2</a>
+              <a href="#/room/SEI40/User3">User3</a>
+              <a href="#/room/SEI40/User4">User4</a>
+              <a href="#/room/SEI40/User5">User5</a>
+              <a href="#/room/SEI40/User6">User6</a>
+              <a href="#/room/SEI40/User7">User7</a>
+              <a href="#/room/SEI40/User8">User8</a>
+              <a href="#/room/SEI40/User9">User9</a>
+              <a href="#/room/SEI40/User10">User10</a>
+              <a href="#/room/SEI40/User11">User11</a>
+            </div>
+            :
+            null
+
           }
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      <div className="login">
-        <h2 className="center_align">Login</h2>
-        <form className="frm">
-          <div className="cont">
-            <label for="uname"><b>Username</b></label>
-            <input className="inp" type="text" placeholder="Enter Username" name="uname" required />
 
-            <label for="psw"><b>Password</b></label>
-            <input className="inp" type="password" placeholder="Enter Password" name="psw" required />
 
-            <button className="butt" type="submit">Login</button>
-          </div>
-        </form>
-      </div>
-      <div className="login">
-      <h2 className="center_align">Sign Up</h2>
-        <form className="frm">
-          <div className="cont">
-            <label for="uname"><b>Username</b></label>
-            <input className="inp" type="text" placeholder="Enter Username" name="uname" required />
-
-            <label for="psw"><b>Password</b></label>
-            <input className="inp" type="password" placeholder="Enter Password" name="psw" required />
-            <label for="psw"><b>Confirm Password</b></label>
-            <input className="inp" type="password" placeholder="Enter Password" name="psw" required />
-
-            <button className="butt" type="submit">Login</button>
-          </div>
-        </form>
       </div>
     </>
   )

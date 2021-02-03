@@ -124,7 +124,10 @@ const Home = (props) => {
     <div className="app">
       <div className="app_body">
         {
-          toggleSidebar === true ? <SideBar toggleChat={handleToggleChat} chatToggleStatus={toggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName}/> : <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
+          toggleSidebar === true
+          ?
+          <SideBar toggleChat={handleToggleChat} chatToggleStatus={toggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName} user={user} history={props.history}/> : 
+          <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
         }
         <div className="chat">
           {
