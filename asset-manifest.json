@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mapChat-react/static/css/main.7195b072.chunk.css",
+    "main.js": "/mapChat-react/static/js/main.58a7eee5.chunk.js",
+    "main.js.map": "/mapChat-react/static/js/main.58a7eee5.chunk.js.map",
+    "runtime-main.js": "/mapChat-react/static/js/runtime-main.066caeef.js",
+    "runtime-main.js.map": "/mapChat-react/static/js/runtime-main.066caeef.js.map",
+    "static/js/2.1e92075c.chunk.js": "/mapChat-react/static/js/2.1e92075c.chunk.js",
+    "static/js/2.1e92075c.chunk.js.map": "/mapChat-react/static/js/2.1e92075c.chunk.js.map",
+    "static/js/3.f647a8fb.chunk.js": "/mapChat-react/static/js/3.f647a8fb.chunk.js",
+    "static/js/3.f647a8fb.chunk.js.map": "/mapChat-react/static/js/3.f647a8fb.chunk.js.map",
+    "index.html": "/mapChat-react/index.html",
+    "static/css/main.7195b072.chunk.css.map": "/mapChat-react/static/css/main.7195b072.chunk.css.map",
+    "static/js/2.1e92075c.chunk.js.LICENSE.txt": "/mapChat-react/static/js/2.1e92075c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.066caeef.js",
+    "static/js/2.1e92075c.chunk.js",
+    "static/css/main.7195b072.chunk.css",
+    "static/js/main.58a7eee5.chunk.js"
+  ]
+}
