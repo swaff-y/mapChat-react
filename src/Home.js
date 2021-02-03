@@ -59,6 +59,9 @@ const Home = (props) => {
      channel.bind('inserted', (newMessage) => {
        setMessages([...messages, newMessage]);
        setLastMessage(newMessage.message);
+       messages.forEach((message,index)=>{
+         sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName };
+       })
      });
      return () => {
        channel.unbind_all();
@@ -68,7 +71,6 @@ const Home = (props) => {
 
   useEffect(()=>{
     let rest = [];
-    let objLat = {};
 
     messages.forEach((message,index)=>{
       rest.push({lat:message.latitude, lng:message.longitude});
@@ -97,7 +99,7 @@ const Home = (props) => {
   const handleRoomChange = (name) => {
     api.post(`/user/${user}/room/${name}`)
     .then(res=>{
-      console.log("room change results:", res.data);
+      // console.log("room change results:", res.data);
     })
     .catch(err=>{
       console.warn(err)

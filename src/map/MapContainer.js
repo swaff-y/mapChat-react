@@ -6,7 +6,6 @@ const MapContainer = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [bound, setBound] = useState();
   const [obj, setObj] = useState({});
-  // const [bounds, setBounds] = useState(new props.google.maps.LatLngBounds());
 
   const bounds = new props.google.maps.LatLngBounds();
   for (var i = 0; i < props.points.length; i++) {
@@ -14,12 +13,7 @@ const MapContainer = (props) => {
   }
 
   useEffect(()=>{
-    // let objLat = {};
-    // props.messages.forEach((message,index)=>{
-    //   objLat[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message };
-    // })
-    //  console.log("Lat Obj:",objLat, props.messages);
-    // setObj(objLat);
+
     setBound(bounds)
     setLoaded(true)
   },[])
@@ -69,7 +63,7 @@ const MapContainer = (props) => {
 
   const displayMarkers = () => {
        // console.log("Sorted CoOrds:", Object.values(props.sortedCoOrds));
-       console.log("Sorted CoOrds:", props.sortedCoOrds);
+       // console.log("Sorted CoOrds:", props.sortedCoOrds);
       return Object.values(props.sortedCoOrds).map((message, index) => {
         if(message.room === props.roomName){
           return <Marker
