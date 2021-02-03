@@ -19,38 +19,28 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
-    const [points, setPoints] = useState([]);
-  // const [messageLocations, setMessageLocations] = useState([]);
+  const [points, setPoints] = useState([]);
+  const [sortedCoOrds, setSortedCoOrds] = useState({});
 
-  useEffect(()=>{
-    api.get(`/rooms/sync/${props.match.params.user}`)
-    .then(res => {
-       // console.log("The room data",res.data);
-      setRooms(res.data);
-      props.history.push(`/room/${res.data[0].name}/${props.match.params.user}`)
-    })
-    .catch(err=>{
-      console.warn(err)
-    })
-
-  },[])
 
   useEffect(() => {
     //get messages
     api.get(`/messages/sync/${roomName}`)
     .then(res => {
       setMessages(res.data);
+      res.data.forEach((message,index)=>{
+        sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName };
+      })
     })
     .catch(err=>{
       console.warn(err)
     })
-  },[rooms]);
+  },[]);
 
   useEffect(() => {
     //Get rooms
     api.get(`/rooms/sync/${user}`)
     .then(res => {
-       // console.log("The room data",res.data);
       setRooms(res.data);
     })
     .catch(err=>{
@@ -67,8 +57,6 @@ const Home = (props) => {
      });
      const channel = pusher.subscribe('messages');
      channel.bind('inserted', (newMessage) => {
-       // alert(JSON.stringify(newMessage));
-       // if()
        setMessages([...messages, newMessage]);
        setLastMessage(newMessage.message);
      });
@@ -80,9 +68,12 @@ const Home = (props) => {
 
   useEffect(()=>{
     let rest = [];
+    let objLat = {};
+
     messages.forEach((message,index)=>{
       rest.push({lat:message.latitude, lng:message.longitude});
     })
+    // console.log("The rest:", rest);
     setPoints(rest)
   },[messages])
 
@@ -104,8 +95,26 @@ const Home = (props) => {
   }
 
   const handleRoomChange = (name) => {
-    props.history.push(`/room/${name}/${user}`);
+    api.post(`/user/${user}/room/${name}`)
+    .then(res=>{
+      console.log("room change results:", res.data);
+    })
+    .catch(err=>{
+      console.warn(err)
+    })
+
+    api.get(`/messages/sync/${name}`)
+    .then(res => {
+      setMessages(res.data);
+      res.data.forEach((message,index)=>{
+        sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: name };
+      })
+    })
+    .catch(err=>{
+      console.warn(err)
+    })
     setRoomName(name);
+    props.history.push(`/room/${name}/${user}`);
   }
 
   // console.log("The messages:", messages);
@@ -117,7 +126,11 @@ const Home = (props) => {
         }
         <div className="chat">
           {
-            toggleChat === true ? <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/> : <MapContainer locations={locations} width={toggleSidebar} messages={messages} points={points}/>
+            toggleChat === true
+            ?
+            <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/>
+            :
+            <MapContainer messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName}/>
           }
         </div>
       </div>

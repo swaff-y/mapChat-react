@@ -26,7 +26,7 @@ const Login = (props) => {
 
         <Dropdown.Menu>
           {
-            users.map((user, index)=><Dropdown.Item href={"#/user/" + user.name}>{user.name}</Dropdown.Item>)
+            users.map((user, index)=><Dropdown.Item href={"#/room/" + user.lastRoom + "/" + user.name}>{user.name}</Dropdown.Item>)
           }
           <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
           <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>

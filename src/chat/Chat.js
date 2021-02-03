@@ -10,6 +10,7 @@ const Chat = (props) => {
   const [toggleThread, setToggleThread] = useState(true);
   const [roomData, setRoomData] = useState([]);
 
+
   useEffect(()=>{
     api.get(`room/${props.roomName}`)
     .then(res=>{
@@ -34,7 +35,7 @@ const Chat = (props) => {
       <ChatHeader handleToggleThread={handleToggleThread} roomName={props.roomName} roomData={roomData}/>
 
       {
-        toggleThread === true ? <ChatThread messages={props.messages} roomName={props.roomName} user={props.user}/> : <ChatParticipants roomName={props.roomName}/>
+        toggleThread === true ? <ChatThread messages={props.messages} roomName={props.roomName} user={props.user}/> : <ChatParticipants roomName={props.roomName} />
       }
 
     </>

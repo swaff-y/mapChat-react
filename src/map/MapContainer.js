@@ -4,9 +4,8 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 const MapContainer = (props) => {
 
   const [loaded, setLoaded] = useState(false);
-  const [lat, setLat] = useState(-33);
-  const [lng, setLng] = useState(151);
   const [bound, setBound] = useState();
+  const [obj, setObj] = useState({});
   // const [bounds, setBounds] = useState(new props.google.maps.LatLngBounds());
 
   const bounds = new props.google.maps.LatLngBounds();
@@ -15,11 +14,15 @@ const MapContainer = (props) => {
   }
 
   useEffect(()=>{
+    // let objLat = {};
+    // props.messages.forEach((message,index)=>{
+    //   objLat[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message };
+    // })
+    //  console.log("Lat Obj:",objLat, props.messages);
+    // setObj(objLat);
     setBound(bounds)
     setLoaded(true)
   },[])
-
-  console.log("The bounds:",bounds);
 
   function wordWrap(str, maxWidth) {
       let newLineStr = "*";
@@ -64,25 +67,25 @@ const MapContainer = (props) => {
     height: '89.5%'
   };
 
-
-
   const displayMarkers = () => {
-      // console.log("inside points:", points);
-      return props.messages.map((message, index) => {
-        return <Marker
-                key={index}
-                id={index}
-                position={{
-                  lat: message.latitude,
-                  lng: message.longitude
-                }}
-                onClick={() => console.log("You clicked me!")}
-                title={wordWrap(message.message,14).split("*")[0]}
-                name={message.name}
-                icon={{
-                  url: `https://chart.googleapis.com/chart?chst=d_fnote&chld=thought|1|0088FF|h|${wordWrap(message.message,14).split("*")[0]}|${wordWrap(message.message,14).split("*")[1] !== undefined ? wordWrap(message.message,14).split("*")[1] : ""}|${wordWrap(message.message,14).split("*")[2] !== undefined ? wordWrap(message.message,14).split("*")[2] : ""}`,
-                }}
-                />
+       // console.log("Sorted CoOrds:", Object.values(props.sortedCoOrds));
+       console.log("Sorted CoOrds:", props.sortedCoOrds);
+      return Object.values(props.sortedCoOrds).map((message, index) => {
+        if(message.room === props.roomName){
+          return <Marker
+                  key={index}
+                  id={index}
+                  position={{
+                    lat: message.latitude,
+                    lng: message.longitude
+                  }}
+                  onClick={() => console.log("You clicked me!")}
+                  title={wordWrap(message.msg,14).split("*")[0]}
+                  icon={{
+                    url: `https://chart.googleapis.com/chart?chst=d_fnote&chld=thought|1|0088FF|h|${wordWrap(message.msg,14).split("*")[0]}|${wordWrap(message.msg,14).split("*")[1] !== undefined ? wordWrap(message.msg,14).split("*")[1] : ""}|${wordWrap(message.msg,14).split("*")[2] !== undefined ? wordWrap(message.msg,14).split("*")[2] : ""}`,
+                  }}
+                  />
+        }
       })
     }
 
@@ -96,7 +99,7 @@ const MapContainer = (props) => {
 
               bounds={loaded === true ? bounds : bound}
             >
-            {displayMarkers()}
+            {loaded === true ? displayMarkers() : null}
             </Map>
             :
             <p>Loading...</p>
