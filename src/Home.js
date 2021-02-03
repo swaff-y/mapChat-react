@@ -6,6 +6,7 @@ import SideBar from './sidebar/SideBar';
 import SkinnySidebar from './sidebar/SkinnySidebar';
 import Chat from './chat/Chat';
 import MapContainer from './map/MapContainer';
+import axios from 'axios';
 
 // const FAKE_SIDEBAR_ROOMS = ["SEI40","Hunting","Fishing","Safari","Crime","Company-XYZ-reps"];
 const FAKE_USER = "Swaff-y";
@@ -19,8 +20,11 @@ const Home = (props) => {
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user, setUser] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
-  const [points, setPoints] = useState([]);
+  const [points, setPoints] = useState(null);
+  const [pointsLoaded, setPointsLoaded] = useState(false);
   const [sortedCoOrds, setSortedCoOrds] = useState({});
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
 
   useEffect(() => {
@@ -35,6 +39,14 @@ const Home = (props) => {
     .catch(err=>{
       console.warn(err)
     })
+
+    axios.get("https://extreme-ip-lookup.com/json/")
+    .then((res)=>{
+      setLatitude(res.data.lat)
+      setLongitude(res.data.lon)
+    })
+    .catch()
+
   },[]);
 
   useEffect(() => {
@@ -70,13 +82,14 @@ const Home = (props) => {
   },[messages]);
 
   useEffect(()=>{
-    let rest = [];
+    let data = [];
 
     messages.forEach((message,index)=>{
-      rest.push({lat:message.latitude, lng:message.longitude});
+      data.push({lat:message.latitude, lng:message.longitude});
     })
     // console.log("The rest:", rest);
-    setPoints(rest)
+    setPoints(data);
+    setPointsLoaded(true);
   },[messages])
 
   const handleToggleChat = () => {
@@ -119,6 +132,7 @@ const Home = (props) => {
     props.history.push(`/room/${name}/${user}`);
   }
 
+
   // console.log("The messages:", messages);
   return (
     <div className="app">
@@ -126,7 +140,7 @@ const Home = (props) => {
         {
           toggleSidebar === true
           ?
-          <SideBar toggleChat={handleToggleChat} chatToggleStatus={toggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName} user={user} history={props.history}/> : 
+          <SideBar toggleChat={handleToggleChat} chatToggleStatus={toggleChat} toggleSidebar={handleToggleSidebar} chatRooms={rooms} handleClick={handleRoomChange}  lastMessage={lastMessage} roomName={roomName} user={user} history={props.history}/> :
           <SkinnySidebar toggleSidebar={handleToggleSidebar}/>
         }
         <div className="chat">
@@ -135,7 +149,7 @@ const Home = (props) => {
             ?
             <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/>
             :
-            <MapContainer messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName}/>
+            points !== null ? <MapContainer width={toggleSidebar} messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName} latitude={latitude} longitude={longitude} /> : <p>Loading...</p>
           }
         </div>
       </div>

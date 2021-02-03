@@ -13,7 +13,6 @@ const MapContainer = (props) => {
   }
 
   useEffect(()=>{
-
     setBound(bounds)
     setLoaded(true)
   },[])
@@ -57,8 +56,10 @@ const MapContainer = (props) => {
   }
 
   const mapStyles = {
+    position: 'absolute',
     width: width,
-    height: '89.5%'
+    height: '89.5%',
+    // margin: 'auto'
   };
 
   const displayMarkers = () => {
@@ -88,9 +89,12 @@ const MapContainer = (props) => {
     {
       props.points.length > 0 ? <Map
               google={props.google}
-
+              zoom={15}
               style={mapStyles}
-
+              initialCenter={{
+                lat: props.latitude,
+                lng: props.longitude
+              }}
               bounds={loaded === true ? bounds : bound}
             >
             {loaded === true ? displayMarkers() : null}

@@ -29,7 +29,7 @@ const Login = (props) => {
   return(
     <>
       <div className="dropdown">
-        <button onClick={handleToggleDrop} className="dropbtn">Dropdown</button>
+        <button onClick={handleToggleDrop} className="dropbtn">Select User</button>
 
           {
             toggleDrop === true
@@ -49,10 +49,7 @@ const Login = (props) => {
             </div>
             :
             null
-
           }
-
-
       </div>
     </>
   )
