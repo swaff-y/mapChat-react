@@ -6,7 +6,20 @@ const MapContainer = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [lat, setLat] = useState(-33);
   const [lng, setLng] = useState(151);
+  const [bound, setBound] = useState();
+  // const [bounds, setBounds] = useState(new props.google.maps.LatLngBounds());
 
+  const bounds = new props.google.maps.LatLngBounds();
+  for (var i = 0; i < props.points.length; i++) {
+    bounds.extend(props.points[i]);
+  }
+
+  useEffect(()=>{
+    setBound(bounds)
+    setLoaded(true)
+  },[])
+
+  console.log("The bounds:",bounds);
 
   function wordWrap(str, maxWidth) {
       let newLineStr = "*";
@@ -15,7 +28,7 @@ const MapContainer = (props) => {
       while (str.length > maxWidth) {
           let found = false;
           // Inserts new line at first whitespace of the line
-          for (i = maxWidth - 1; i >= 0; i--) {
+          for (let i = maxWidth - 1; i >= 0; i--) {
               if (testWhite(str.charAt(i))) {
                   res = res + [str.slice(0, i), newLineStr].join('');
                   str = str.slice(i + 1);
@@ -39,12 +52,6 @@ const MapContainer = (props) => {
       return white.test(x.charAt(0));
   };
 
-
-  const bounds = new props.google.maps.LatLngBounds();
-  for (var i = 0; i < props.points.length; i++) {
-    bounds.extend(props.points[i]);
-  }
-
   let width;
   if(props.width === true){
     width = '58.5%';
@@ -57,7 +64,7 @@ const MapContainer = (props) => {
     height: '89.5%'
   };
 
-  console.log("The bounds:", bounds);
+
 
   const displayMarkers = () => {
       // console.log("inside points:", points);
@@ -86,8 +93,8 @@ const MapContainer = (props) => {
               google={props.google}
 
               style={mapStyles}
-              initialCenter={{ lat: lat, lng: lng }}
-              bounds={bounds}
+
+              bounds={loaded === true ? bounds : bound}
             >
             {displayMarkers()}
             </Map>

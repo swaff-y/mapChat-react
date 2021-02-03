@@ -109,8 +109,6 @@ const Home = (props) => {
   }
 
   // console.log("The messages:", messages);
-
-
   return (
     <div className="app">
       <div className="app_body">
