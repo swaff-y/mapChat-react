@@ -3,11 +3,11 @@ import axios from 'axios';
 
   // const url = 'http://localhost:9000';
 
-  // const url = 'https://swaff-y.github.io/';
+  // const url = 'https://map-chatr.herokuapp.com';
 
 
 const api = axios.create({
-  baseURL: 'https://swaff-y.github.io/mapChat-react',
+  baseURL: 'https://map-chatr.herokuapp.com',
 })
 
 export default api;
