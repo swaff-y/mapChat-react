@@ -10,6 +10,7 @@ import "./SideBar.css"
 const SideBar = (props) => {
   const [search, setSearch] = useState("");
   const [chatRooms, setChatRooms] = useState(null);
+  // const [arr, setArr] = useState([]);
 
   props.chatRooms.forEach((room)=>{
     // console.log(room.name);
@@ -24,17 +25,23 @@ const SideBar = (props) => {
     setSearch(str);
     const index = e.target.value.length - 1;
     console.log(str,index,chatRooms);
-    let arr = chatRooms;
+
+    let arr = [];
+
     // console.log("comp:", index);
      if(chatRooms === null){
       props.chatRooms.forEach((room)=>{
         console.log("room index:", index);
         let obj = {};
         if(index >= 0){
+          console.log("here");
           if(str.toLowerCase() === room.name[index].toLowerCase()){
             obj['name'] = room.name;
             obj['lastMessage'] = room.lastMessage;
             // console.log(props.chatRooms);
+
+            // setArr(arr.push(obj));
+
             arr.push(obj);
           }
         }
@@ -49,6 +56,9 @@ const SideBar = (props) => {
             obj['name'] = room.name;
             obj['lastMessage'] = room.lastMessage;
             // console.log(props.chatRooms);
+
+            // setArr(arr.push(obj));
+
             arr.push(obj);
           }
         }else if(index === 1){
@@ -57,6 +67,9 @@ const SideBar = (props) => {
             obj['name'] = room.name;
             obj['lastMessage'] = room.lastMessage;
             // console.log(props.chatRooms);
+
+            // setArr(arr.push(obj));
+
             arr.push(obj);
           }
         }else if(index === 2){
@@ -65,6 +78,9 @@ const SideBar = (props) => {
             obj['name'] = room.name;
             obj['lastMessage'] = room.lastMessage;
             // console.log(props.chatRooms);
+
+            // setArr(arr.push(obj));
+
             arr.push(obj);
           }
         }
@@ -84,7 +100,7 @@ const SideBar = (props) => {
     console.log("This is the text: ", search);
   }
 
-  // console.log(chatRooms);
+   // console.log(chatRooms.);
   return(
     <div className="sidebar">
       <div className="sidebar_header">
