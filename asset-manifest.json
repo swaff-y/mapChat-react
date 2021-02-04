@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/mapChat-react/static/css/main.b0e8a873.chunk.css",
-    "main.js": "/mapChat-react/static/js/main.82a883ae.chunk.js",
-    "main.js.map": "/mapChat-react/static/js/main.82a883ae.chunk.js.map",
+    "main.js": "/mapChat-react/static/js/main.ffa54824.chunk.js",
+    "main.js.map": "/mapChat-react/static/js/main.ffa54824.chunk.js.map",
     "runtime-main.js": "/mapChat-react/static/js/runtime-main.066caeef.js",
     "runtime-main.js.map": "/mapChat-react/static/js/runtime-main.066caeef.js.map",
     "static/js/2.59a883d0.chunk.js": "/mapChat-react/static/js/2.59a883d0.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.066caeef.js",
     "static/js/2.59a883d0.chunk.js",
     "static/css/main.b0e8a873.chunk.css",
-    "static/js/main.82a883ae.chunk.js"
+    "static/js/main.ffa54824.chunk.js"
   ]
 }
