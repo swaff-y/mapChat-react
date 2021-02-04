@@ -113,7 +113,7 @@ const Home = (props) => {
       setToggleSidebar(true);
     }else if(toggleSidebar === true){
       setToggleSidebar(false);
-      setToggleChat(false);
+      // setToggleChat(false);
     }
   }
 
