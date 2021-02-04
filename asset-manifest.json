@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/mapChat-react/static/css/main.ef609c22.chunk.css",
-    "main.js": "/mapChat-react/static/js/main.ec06d5f2.chunk.js",
-    "main.js.map": "/mapChat-react/static/js/main.ec06d5f2.chunk.js.map",
+    "main.css": "/mapChat-react/static/css/main.b0e8a873.chunk.css",
+    "main.js": "/mapChat-react/static/js/main.baf62e7a.chunk.js",
+    "main.js.map": "/mapChat-react/static/js/main.baf62e7a.chunk.js.map",
     "runtime-main.js": "/mapChat-react/static/js/runtime-main.066caeef.js",
     "runtime-main.js.map": "/mapChat-react/static/js/runtime-main.066caeef.js.map",
-    "static/js/2.0853a90a.chunk.js": "/mapChat-react/static/js/2.0853a90a.chunk.js",
-    "static/js/2.0853a90a.chunk.js.map": "/mapChat-react/static/js/2.0853a90a.chunk.js.map",
+    "static/js/2.59a883d0.chunk.js": "/mapChat-react/static/js/2.59a883d0.chunk.js",
+    "static/js/2.59a883d0.chunk.js.map": "/mapChat-react/static/js/2.59a883d0.chunk.js.map",
     "static/js/3.f647a8fb.chunk.js": "/mapChat-react/static/js/3.f647a8fb.chunk.js",
     "static/js/3.f647a8fb.chunk.js.map": "/mapChat-react/static/js/3.f647a8fb.chunk.js.map",
     "index.html": "/mapChat-react/index.html",
-    "static/css/main.ef609c22.chunk.css.map": "/mapChat-react/static/css/main.ef609c22.chunk.css.map",
-    "static/js/2.0853a90a.chunk.js.LICENSE.txt": "/mapChat-react/static/js/2.0853a90a.chunk.js.LICENSE.txt"
+    "static/css/main.b0e8a873.chunk.css.map": "/mapChat-react/static/css/main.b0e8a873.chunk.css.map",
+    "static/js/2.59a883d0.chunk.js.LICENSE.txt": "/mapChat-react/static/js/2.59a883d0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.066caeef.js",
-    "static/js/2.0853a90a.chunk.js",
-    "static/css/main.ef609c22.chunk.css",
-    "static/js/main.ec06d5f2.chunk.js"
+    "static/js/2.59a883d0.chunk.js",
+    "static/css/main.b0e8a873.chunk.css",
+    "static/js/main.baf62e7a.chunk.js"
   ]
 }
