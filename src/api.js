@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 const api = axios.create({
-  baseURL: 'https://swaff-y.github.io/',
+  baseURL: 'https://swaff-y.github.io',
 })
 
 export default api;
