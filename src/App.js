@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import Login from './login/Login';
-import { Link, Route, HashRouter as Router } from 'react-router-dom';
+import { Route, HashRouter as Router } from 'react-router-dom';
 
 const App = () => {
 

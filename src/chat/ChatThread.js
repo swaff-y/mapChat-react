@@ -13,8 +13,8 @@ const ChatThread = (props) => {
 
   const [toggleEmoji, setToggleEmoji] = useState(false);
   const [input, setInput] = useState('');
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(props.latitude);
+  const [longitude, setLongitude] = useState(props.longitude);
   const [locationOff, setLocationOff] = useState(false);
 
   // console.log("The browser:", navigator.permissions);

@@ -8,21 +8,18 @@ import Chat from './chat/Chat';
 import MapContainer from './map/MapContainer';
 import axios from 'axios';
 
-// const FAKE_SIDEBAR_ROOMS = ["SEI40","Hunting","Fishing","Safari","Crime","Company-XYZ-reps"];
-const FAKE_USER = "Swaff-y";
-
 const Home = (props) => {
   const [messages, setMessages] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [toggleChat, setToggleChat] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(true);
-  const [locations, setLocations] = useState([]);
+  // const [locations, setLocations] = useState([]);
   const [roomName, setRoomName] = useState(props.match.params.name);
-  const [user, setUser] = useState(props.match.params.user);
+  const [user] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
   const [points, setPoints] = useState(null);
-  const [pointsLoaded, setPointsLoaded] = useState(false);
-  const [sortedCoOrds, setSortedCoOrds] = useState({});
+  // const [pointsLoaded, setPointsLoaded] = useState(false);
+  const [sortedCoOrds] = useState({});
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
@@ -46,7 +43,6 @@ const Home = (props) => {
       setLongitude(res.data.lon)
     })
     .catch()
-
   },[]);
 
   useEffect(() => {
@@ -89,7 +85,6 @@ const Home = (props) => {
     })
     // console.log("The rest:", rest);
     setPoints(data);
-    setPointsLoaded(true);
   },[messages])
 
   const handleToggleChat = () => {
@@ -147,7 +142,7 @@ const Home = (props) => {
           {
             toggleChat === true
             ?
-            <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage}/>
+            <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage} latitude={latitude} longitude={longitude}/>
             :
             points !== null ? <MapContainer width={toggleSidebar} messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName} latitude={latitude} longitude={longitude} /> : <p>Loading...</p>
           }
