@@ -3,8 +3,6 @@ import Home from './Home';
 import Login from './login/Login';
 import { Route, HashRouter as Router } from 'react-router-dom';
 
-console.log("Env:", process.env);
-
 const App = () => {
 
   return (

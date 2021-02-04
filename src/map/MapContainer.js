@@ -39,7 +39,6 @@ const MapContainer = (props) => {
           }
 
       }
-
       return res + str;
   }
 
