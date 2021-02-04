@@ -48,18 +48,24 @@ const ChatThread = (props) => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    api.post(`/messages/new`, {
-      message: input,
-      name: props.user,
-      timestamp: Date.now(),
-      room: props.roomName,
-      latitude: latitude,
-      longitude: longitude
-    }).then((res=>{
-      console.log("Message Succesfully sent");
-      setInput("");
-    })).catch(err=>console.log("I am throwing and error:", err));
-  };
+    if( latitude || longitude){
+        api.post(`/messages/new`, {
+          message: input,
+          name: props.user,
+          timestamp: Date.now(),
+          room: props.roomName,
+          latitude: latitude,
+          longitude: longitude
+        }).then((res=>{
+          console.log("Message Succesfully sent");
+          setInput("");
+        })).catch(err=>console.log("I am throwing and error:", err));
+      }else{
+        console.warn("NO LATITUDE");
+      }
+
+    }
+
 
   const scrollToBottom = () => {
     animateScroll.scrollToBottom({

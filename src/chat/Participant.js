@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Avatar} from '@material-ui/core';
+import './Chat.css';
 
-const Participant = ({participant}) => {
+const Participant = ({participant, mapClick}) => {
   const [lastMessage, setLastMessage] = useState("");
 
   useEffect(()=>{
@@ -12,8 +13,10 @@ const Participant = ({participant}) => {
     }
   },[participant.lastMessage])
 
+  console.log("map click:", mapClick, "name:", participant.name);
+
   return(
-    <div className="sidebarChat">
+    <div className={`sidebarChat ${mapClick === participant.name ? "chat_selected" : "" }`}>
       <Avatar />
       <div className="sidebarChat_info">
         <h2>{ participant.name }</h2>

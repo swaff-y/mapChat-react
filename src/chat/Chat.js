@@ -7,7 +7,7 @@ import api from '../api';
 
 
 const Chat = (props) => {
-  const [toggleThread, setToggleThread] = useState(true);
+  // const [toggleThread, setToggleThread] = useState(true);
   const [roomData, setRoomData] = useState([]);
 
 
@@ -21,21 +21,21 @@ const Chat = (props) => {
     })
   },[props.messages])
 
-  const handleToggleThread = () => {
-    if(toggleThread === false){
-      setToggleThread(true);
-    }else if(toggleThread === true){
-      setToggleThread(false);
-    }
-  }
+  // const handleToggleThread = () => {
+  //   if(toggleThread === false){
+  //     setToggleThread(true);
+  //   }else if(toggleThread === true){
+  //     setToggleThread(false);
+  //   }
+  // }
 
   return(
     <>
 
-      <ChatHeader handleToggleThread={handleToggleThread} roomName={props.roomName} roomData={roomData} latitude={props.latitude} longitude={props.longitude}/>
+      <ChatHeader handleToggleThread={props.handleToggleThread} roomName={props.roomName} roomData={roomData} latitude={props.latitude} longitude={props.longitude}/>
 
       {
-        toggleThread === true ? <ChatThread messages={props.messages} roomName={props.roomName} user={props.user}/> : <ChatParticipants roomName={props.roomName} />
+        props.toggleThread === true ? <ChatThread messages={props.messages} roomName={props.roomName} user={props.user}/> : <ChatParticipants roomName={props.roomName} mapClick={props.mapClick}/>
       }
 
     </>

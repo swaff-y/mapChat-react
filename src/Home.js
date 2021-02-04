@@ -22,27 +22,35 @@ const Home = (props) => {
   const [sortedCoOrds] = useState({});
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [mapClick, setMapClick] = useState("");
+  const [toggleThread, setToggleThread] = useState(true);
 
 
   useEffect(() => {
     //get messages
-    api.get(`/messages/sync/${roomName}`)
-    .then(res => {
-      setMessages(res.data);
-      res.data.forEach((message,index)=>{
-        sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName };
+    // setInterval(()=>{
+      api.get(`/messages/sync/${roomName}`)
+      .then(res => {
+        setMessages(res.data);
+        res.data.forEach((message,index)=>{
+          sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName, name: message.name };
+        })
       })
-    })
-    .catch(err=>{
-      console.warn(err)
-    })
+      .catch(err=>{
+        console.warn(err)
+      })
+      // console.log("tik");
+    // },5000)
+
 
     axios.get("https://extreme-ip-lookup.com/json/")
     .then((res)=>{
       setLatitude(res.data.lat)
       setLongitude(res.data.lon)
     })
-    .catch()
+    .catch((err)=>{
+      console.warn(err)
+    });
   },[]);
 
   useEffect(() => {
@@ -65,27 +73,32 @@ const Home = (props) => {
      });
      const channel = pusher.subscribe('messages');
      channel.bind('inserted', (newMessage) => {
-       setMessages([...messages, newMessage]);
-       setLastMessage(newMessage.message);
-       messages.forEach((message,index)=>{
-         sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName };
-       })
+
+        if(messages[messages.length - 1].message !== newMessage.message){
+         setMessages([...messages, newMessage]);
+         setLastMessage(newMessage.message);
+         messages.forEach((message,index)=>{
+           sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: roomName, name: message.name };
+         })
+        }
      });
+     // console.log("tik");
+     let data = [];
+
+     messages.forEach((message,index)=>{
+       data.push({lat:message.latitude, lng:message.longitude});
+     })
+     // console.log("The rest:", rest);
+     setPoints(data);
      return () => {
        channel.unbind_all();
        channel.unsubscribe();
      };
   },[messages]);
 
-  useEffect(()=>{
-    let data = [];
-
-    messages.forEach((message,index)=>{
-      data.push({lat:message.latitude, lng:message.longitude});
-    })
-    // console.log("The rest:", rest);
-    setPoints(data);
-  },[messages])
+  // useEffect(()=>{
+  //
+  // },[messages])
 
   const handleToggleChat = () => {
     if(toggleChat === false){
@@ -104,6 +117,22 @@ const Home = (props) => {
     }
   }
 
+  const handleToggleThread = () => {
+    axios.get("https://extreme-ip-lookup.com/json/")
+    .then((res)=>{
+      setLatitude(res.data.lat)
+      setLongitude(res.data.lon)
+    })
+    .catch((err)=>{
+      console.warn(err)
+    });
+    if(toggleThread === false){
+      setToggleThread(true);
+    }else if(toggleThread === true){
+      setToggleThread(false);
+    }
+  }
+
   const handleRoomChange = (name) => {
     api.post(`/user/${user}/room/${name}`)
     .then(res=>{
@@ -117,7 +146,7 @@ const Home = (props) => {
     .then(res => {
       setMessages(res.data);
       res.data.forEach((message,index)=>{
-        sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: name };
+        sortedCoOrds[message.name] = { latitude: message.latitude, longitude: message.longitude, msg: message.message, room: name, name: message.name};
       })
     })
     .catch(err=>{
@@ -127,8 +156,14 @@ const Home = (props) => {
     props.history.push(`/room/${name}/${user}`);
   }
 
+  const handleMapClick = (value) => {
+    setMapClick(value);
+    setToggleChat(true);
+    setToggleThread(false);
+  }
 
-  // console.log("The messages:", messages);
+
+  // console.log("The messages:", points);
   return (
     <div className="app">
       <div className="app_body">
@@ -142,9 +177,9 @@ const Home = (props) => {
           {
             toggleChat === true
             ?
-            <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage} latitude={latitude} longitude={longitude}/>
+            <Chat messages={messages} roomName={roomName} user={user} rooms={rooms} lastMessage={lastMessage} latitude={latitude} longitude={longitude} handleToggleThread={handleToggleThread} toggleThread={toggleThread} mapClick={mapClick}/>
             :
-            points !== null ? <MapContainer width={toggleSidebar} messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName} latitude={latitude} longitude={longitude} /> : <p>Loading...</p>
+            points !== null ? <MapContainer width={toggleSidebar} messages={messages} points={points} sortedCoOrds={sortedCoOrds} roomName={roomName} latitude={latitude} longitude={longitude} handleMapClick={handleMapClick}/> : <p className="app_center">No Chats on thread</p>
           }
         </div>
       </div>

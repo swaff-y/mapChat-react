@@ -19,7 +19,7 @@ const ChatParticipants = (props) => {
   return(
     <div className="chat_participants">
       {
-        participants.map((participant,index) => <Participant key={index} participant={participant}/> )
+        participants.map((participant,index) => <Participant key={index} participant={participant} mapClick={props.mapClick} /> )
       }
     </div>
   )

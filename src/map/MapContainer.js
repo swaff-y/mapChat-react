@@ -61,6 +61,12 @@ const MapContainer = (props) => {
     // margin: 'auto'
   };
 
+  const handleClick = (name) => {
+    props.handleMapClick(name);
+  }
+
+  console.log("lat:", props.sortedCoOrds);
+
   const displayMarkers = () => {
        // console.log("Sorted CoOrds:", Object.values(props.sortedCoOrds));
        // console.log("Sorted CoOrds:", props.sortedCoOrds);
@@ -73,7 +79,7 @@ const MapContainer = (props) => {
                     lat: message.latitude,
                     lng: message.longitude
                   }}
-                  onClick={() => console.log("You clicked me!")}
+                  onClick={()=>handleClick(message.name)}
                   title={wordWrap(message.msg,14).split("*")[0]}
                   icon={{
                     url: `https://chart.googleapis.com/chart?chst=d_fnote&chld=thought|1|0088FF|h|${wordWrap(message.msg,14).split("*")[0]}|${wordWrap(message.msg,14).split("*")[1] !== undefined ? wordWrap(message.msg,14).split("*")[1] : ""}|${wordWrap(message.msg,14).split("*")[2] !== undefined ? wordWrap(message.msg,14).split("*")[2] : ""}`,
@@ -99,7 +105,7 @@ const MapContainer = (props) => {
             {loaded === true ? displayMarkers() : null}
             </Map>
             :
-            <p>Loading...</p>
+            <p className="app_center">No Chats on thread</p>
     }
 
     </div>
