@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 const api = axios.create({
-  baseURL: 'http://localhost:9000',
+  baseURL: 'https://map-chatr.herokuapp.com',
 })
 
 export default api;
