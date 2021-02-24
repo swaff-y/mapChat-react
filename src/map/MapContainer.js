@@ -68,8 +68,6 @@ const MapContainer = (props) => {
   console.log("lat:", props.sortedCoOrds);
 
   const displayMarkers = () => {
-       // console.log("Sorted CoOrds:", Object.values(props.sortedCoOrds));
-       // console.log("Sorted CoOrds:", props.sortedCoOrds);
       return Object.values(props.sortedCoOrds).map((message, index) => {
         if(message.room === props.roomName){
           return <Marker
@@ -115,22 +113,3 @@ const MapContainer = (props) => {
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyAW5MNODxdAncbpnSGtOIl6Gyfjo-e6w3g'
 })(MapContainer);
-
-
-
-
-
-// let msg;
-// msg = props.messages[0].message
-//
-// const wrap = (s) => s.replace(
-//   /(?![^-]{1,32}$)([^-]{1,32})\s/g, '$1\n'
-// );
-//
-//  let str = wrap(msg)
-//
-//  let arr = [];
-//
-//  arr = str.split("\n");
-//
-// console.log("The string:", str, arr);

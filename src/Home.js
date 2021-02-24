@@ -13,12 +13,10 @@ const Home = (props) => {
   const [rooms, setRooms] = useState([]);
   const [toggleChat, setToggleChat] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(true);
-  // const [locations, setLocations] = useState([]);
   const [roomName, setRoomName] = useState(props.match.params.name);
   const [user] = useState(props.match.params.user);
   const [lastMessage, setLastMessage] = useState("");
   const [points, setPoints] = useState(null);
-  // const [pointsLoaded, setPointsLoaded] = useState(false);
   const [sortedCoOrds] = useState({});
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -39,11 +37,10 @@ const Home = (props) => {
       .catch(err=>{
         console.warn(err)
       })
-      // console.log("tik");
     // },5000)
 
 
-    axios.get("https://extreme-ip-lookup.com/json/")
+  axios.get("https://extreme-ip-lookup.com/json/")
     .then((res)=>{
       setLatitude(res.data.lat)
       setLongitude(res.data.lon)
@@ -96,10 +93,6 @@ const Home = (props) => {
      };
   },[messages]);
 
-  // useEffect(()=>{
-  //
-  // },[messages])
-
   const handleToggleChat = () => {
     if(toggleChat === false){
       setToggleChat(true);
@@ -136,7 +129,6 @@ const Home = (props) => {
   const handleRoomChange = (name) => {
     api.post(`/user/${user}/room/${name}`)
     .then(res=>{
-      // console.log("room change results:", res.data);
     })
     .catch(err=>{
       console.warn(err)
@@ -162,8 +154,6 @@ const Home = (props) => {
     setToggleThread(false);
   }
 
-
-  // console.log("The messages:", points);
   return (
     <div className="app">
       <div className="app_body">
